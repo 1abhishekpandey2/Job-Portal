@@ -20,6 +20,7 @@ def chk(pwd, mailid):
         if i[2] == mailid and i[3] == pwd:
             print('Welcome', i[1])
             user.append(i)
+            
             return 'employee'
 
         # Check in the seeker table
@@ -179,37 +180,38 @@ def menu_emp():
 
                 c21=int(input('\nedit(2-5) or Back(0)\n'))
                 if c21==0:
-                    menu_seek()
+                    menu_emp()
                 elif c21==2:
                     name=input('\nNew Name')
                     cursor.execute("UPDATE employee SET name = %s WHERE company_id = %s", (name, i[0]))
                     print('\n...Updated...\n')
                     mydb.commit()
-                    menu_seek()
+                    menu_emp()
                 elif c21==3:
                     mail=input('New Email-ID')
                     cursor.execute("UPDATE employee SET email = %s WHERE company_id = %s", (mail, i[0]))
                     print('\n...Updated...\n')
                     mydb.commit()
-                    menu_seek()
+                    menu_emp()
                 elif c21==4:
                     pwd=input('New password')
                     cursor.execute("UPDATE employee SET password = %s WHERE company_id = %s", (pwd, i[0]))
                     print('\n...Updated...\n')
                     mydb.commit()
-                    menu_seek()
+                    menu_emp()
                 elif c21==5:
                     pos=input('Position')
                     cursor.execute("UPDATE employee SET position = %s WHERE company_id = %s", (pos, i[0]))
                     print('\n...Updated...\n')
                     mydb.commit()
-                    menu_seek()
+                    menu_emp()
                 else:
                     print('invalid choice')
-                    menu_seek()
+                    menu_emp()
         
 
     elif c3 == 4:
+        user.pop()
         login()
 def menu_seek():
     print('''\n    1.browse for jobs
@@ -376,7 +378,8 @@ def login():
         
         print('''TO Proceed
         1.Login
-        2.Sign Up''')
+        2.Sign Up
+        3.quit''')
         c1=int(input('Enter your choice'))
         if c1==1:
             print('enter your E-mail ID and Password')
@@ -443,6 +446,11 @@ def login():
                 print('....successfully signed up....')
                 mydb.commit()
                 mydb.close
+        
+        elif c1==3:
+            print('exiting...')
+            break
+
         else:
             print('invalid choice')
             
