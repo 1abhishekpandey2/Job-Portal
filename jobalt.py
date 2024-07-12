@@ -278,7 +278,7 @@ def menu_seek():
             c+=1
         while True:
 
-            c21=int(input('\nwithdraw from job(JOB ID) or Back(0)\n'))
+            c21=int(input('\n...withdraw from job(JOB ID) or Back(0)...\n'))
             if c21==0:
                 menu_seek()
 
