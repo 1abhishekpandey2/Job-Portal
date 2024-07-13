@@ -176,6 +176,7 @@ def menu_emp():
         for i in r:
             if pwd==i[3] and user[0][2]==i[2]:
                 print("{}:{}".format('1.Company_ID',i[0]),'\n{}:{}'.format('2.name',i[1]),'\n{}:{}'.format('3.Email-ID',i[2]),'\n{}:{}'.format('4.password',i[3]),'\n{}:{}'.format('5.Position',i[4]))
+            
         # Display employee information
 
                 c21=int(input('\nedit(2-5) or Back(0)\n'))
@@ -211,7 +212,9 @@ def menu_emp():
         
 
     elif c3 == 4:
-        user.pop()
+        if user!=[]:
+
+            user.pop()
         login()
 def menu_seek():
     print('''\n    1.browse for jobs
@@ -449,6 +452,8 @@ def login():
         
         elif c1==3:
             print('exiting...')
+            if user !=[]:
+                user.pop()
             break
 
         else:
