@@ -1,40 +1,9 @@
 import mysql.connector as sql
+import mail_verification as mv
 
 user=[]
-def valid_mail(mailid):
-    if mailid.endswith('.com') and (mailid.index('@'))!=0:
-        return True
-    else:
-        return False
 
-def chk(pwd, mailid):
-    mydb = sql.connect(host='localhost', user='root', password='root', database='portal')
-    cursor = mydb.cursor()
-    
-        # Check in the employee table
-    q = 'select * from employee;'
-    cursor.execute(q)
-    r = cursor.fetchall()
-
-    for i in r:
-        if i[2] == mailid and i[3] == pwd:
-            print('Welcome', i[1])
-            user.append(i)
-            
-            return 'employee'
-
-        # Check in the seeker table
-    q = 'select * from seeker;'
-    cursor.execute(q)
-    r = cursor.fetchall()
-
-    for i in r:
-        if i[2] == mailid and i[3] == pwd:
-            
-            print('Welcome', i[1])
-            user.append(i)
-            print(user)
-            return 'seeker'
+#
 
     
     
@@ -370,10 +339,10 @@ def menu_seek():
             print('\nWrong Password\n')
             menu_seek()
     
-    elif c2==4:
+    elif c2==4 and user!=[]:
         user.pop()
         login()
-    mydb.close()
+    
     
 def login():
 
@@ -383,17 +352,17 @@ def login():
         1.Login
         2.Sign Up
         3.quit''')
-        c1=int(input('Enter your choice'))
-        if c1==1:
+        c1=input('Enter your choice')
+        if c1=='1':
             print('enter your E-mail ID and Password')
         
             mailid=input('email:-')
 
-            if valid_mail(mailid)==True:#checks whether the mailid is correct or not
+            if mv.valid_mail(mailid)==True:#checks whether the mailid is correct or not
 
                 pwd=input('password')
 
-                user_type=chk(pwd,mailid)
+                user_type=mv.chk(pwd,mailid,user)
 
                 if user_type=='employee':#checks whether the user exists or not
                 
@@ -404,12 +373,12 @@ def login():
                     menu_seek()
                     break
                 else:
-                    print("\nWrong email or password \n\nIf You don't Have an account does not exist sign up first'",end='\n')
+                    print("\nWrong email or password \n\nIf You don't Have an account sign up first'",end='\n')
                     
             else:
                 print('Invalid Email ID. \nTRY AGAIN')
                 
-        elif c1==2:
+        elif c1=='2':
             print('''\nAre you a Recruiter or Job Seeker.
 1.Recruiter
 2.Job Seeker''')
@@ -450,7 +419,7 @@ def login():
                 mydb.commit()
                 mydb.close
         
-        elif c1==3:
+        elif c1=='3':
             print('exiting...')
             if user !=[]:
                 user.pop()
